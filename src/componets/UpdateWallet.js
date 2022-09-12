@@ -1,31 +1,41 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from "react"
-
+import React, { useState, useContext } from "react"
+import UserContext from "../contexts/UserContext.js";
 import { newTransaction } from './Service.js';
 import { Button, Input } from './common/index.js';
 
+
 export default function UpdateWallet ({type, closetab}) {
     const navigate = useNavigate();
+
+    const { user } = useContext(UserContext);
     const [valor, setValor] = useState('');
     const [descricao, setDescricao] = useState('');
     let title = type === 'receive'? 'Nova entrada':'Nova saída';
 
     function handleForm(e) {
         e.preventDefault();
-        const body = {
+        const newWalletTransaction = {
           descricao,
           valor,
           type: type
         };
+        let wallet = [];
+        if(!!user.wallet){
+            wallet = user.wallet;
+        }
+        wallet.push(newWalletTransaction);
         setValor('');
         setDescricao('');
         
-        const promise = newTransaction(body);
+        const promise = newTransaction({wallet});
 
         promise
-            .then(() => { 
-                navigate('/mywallet');})
+            .then(resposta => {
+                console.log(resposta) 
+                navigate('/mywallet');
+                closetab(false);})
             .catch(resposta => {
                 console.log(resposta);
                 alert('Não foi possível atender a solicitação!');
