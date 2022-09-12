@@ -3,6 +3,9 @@ import Button from './Button.js';
 import Input from './Input.js';
 import TextLink from './TextLink.js';
 import ContainerLogin from './ContainerLogin.js';
+import Top from './Top.js';
+import ContainerPrivatePage from './ContainerPrivatePage.js'
 
 export { GlobalStyle, Button, Input,
-    TextLink, ContainerLogin };
+    TextLink, ContainerLogin, Top,
+    ContainerPrivatePage };

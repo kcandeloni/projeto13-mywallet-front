@@ -5,6 +5,8 @@ import UserContext from "../contexts/UserContext";
 
 import Login from './Sign_in.js';
 import Cadastro from './Sign_up.js';
+import PrivatePage from "./PrivatePage";
+import MyWallet from "./MyWallet.js";
 
 export default function App() {
 
@@ -18,6 +20,10 @@ export default function App() {
                     <Routes>
                         <Route path='/' element={<Login />}/>
                         <Route path='/cadastro' element={<Cadastro />}/>
+                        <Route path='/mywallet' element={
+                            <PrivatePage>
+                                <MyWallet />
+                            </PrivatePage>}/>
                     </Routes>
                 </BrowserRouter>
             </UserContext.Provider>

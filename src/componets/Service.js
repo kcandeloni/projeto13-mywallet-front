@@ -32,41 +32,29 @@ function login(body) {
     return promise;
 }
 
-function create(body) {
+function getMyWallet(body) {
     const config = getToken();
-    const promise = axios.post(`${BASE_URL}/habits`, body, config);
+    const promise = axios.get(`${BASE_URL}/mywallet`, body, config);
     return promise;
 }
 
-/* function getHabits() {
-  const config = getToken();
-  const promise = axios.get(`${BASE_URL}/habits`, config);
-  return promise;
+function newTransaction(body) {
+    const config = getToken();
+    const promise = axios.post(`${BASE_URL}/mywallet`, body, config);
+    return promise;
 }
 
-function deleteHabits(id) {
-  const config = getToken();
-  const promise = axios.delete(`${BASE_URL}/habits/${id}`, config);
-  return promise;
+/* function updateTransaction(body) {
+    const config = getToken();
+    const promise = axios.put(`${BASE_URL}/mywallet`, body, config);
+    return promise;
 }
 
-function getToday() {
-  const config = getToken();
-  const promise = axios.get(`${BASE_URL}/habits/today`, config);
-  return promise;
-}
+function deleteTransaction(body) {
+    const config = getToken();
+    const promise = axios.delete(`${BASE_URL}/mywallet`, body, config);
+    return promise;
+} */
 
-function checkHabit(id, op_url) {
-  const config = getToken();
-  const promise = axios.post(`${BASE_URL}/habits/${id}/${op_url}`, {}, config);
-  return promise;
-}
-
-function getHistory() {
-  const config = getToken();
-  const promise = axios.get(`${BASE_URL}/habits/history/daily`, config);
-  return promise;
-}
- */
-export { singUp, create, setToken,
-  getToken, login};
+export { singUp, getMyWallet, newTransaction, setToken,
+  getToken, login, /* updateTransaction, deleteTransaction */};
