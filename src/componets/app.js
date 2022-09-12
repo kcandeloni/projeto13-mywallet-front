@@ -11,11 +11,12 @@ import MyWallet from "./MyWallet.js";
 export default function App() {
 
     const [user, setUser] = useState({});
+    const [dataUser, setDataUser] = useState({});
 
     return (
         <>
         <GlobalStyle />
-            <UserContext.Provider value={{ user, setUser }}>
+            <UserContext.Provider value={{ user, setUser, dataUser, setDataUser }}>
                 <BrowserRouter>
                     <Routes>
                         <Route path='/' element={<Login />}/>

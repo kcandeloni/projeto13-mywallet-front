@@ -1,21 +1,26 @@
 import React, { useContext } from "react"
 import UserContext from "../../contexts/UserContext.js";
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 export default function Top() {
-  
-  const { user } = useContext(UserContext);
+    const { setDataUser } = useContext(UserContext);
 
-
-  return(
-      <TopoApp>
+    const navigate= useNavigate();
+    const { dataUser } = useContext(UserContext);
+    return(
+        <TopoApp>
             <DivName>
-                {!!user.name ? 'Olá, ':`Olá, ${user.name}`}
+                {!dataUser.name ? 'Olá, ':`Olá, ${dataUser.name}`}
             </DivName> 
-            <IconExit>
+            <IconExit onClick={()=> {
+                localStorage.clear('mywallet');
+                setDataUser({});
+                navigate('/');}
+            }>
                 <ion-icon name="exit-outline"></ion-icon>
             </IconExit>
-      </TopoApp>);
+        </TopoApp>);
 }
 
 const TopoApp = styled.div`
@@ -31,6 +36,7 @@ const TopoApp = styled.div`
 const IconExit = styled.div`
     font-size: 24px;
     color: #FFFFFF;
+    cursor: pointer;
 `;
 
 const DivName = styled.div`

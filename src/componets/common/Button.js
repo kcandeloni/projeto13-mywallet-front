@@ -29,13 +29,23 @@ const ButtonWrapper = styled.button`
 
     border: none;
     margin: 6px 0;
-
+    ion-icon {
+      font-size: 26px;
+    }
+    
 ${(props) => {
     if (props.size === 'tiny') {
         return `
             width: 155px;
             height: 114px;
             font-size: 17px;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: start;
+            padding: 6px 6px;
+            p{
+              width: 20px;
+            }
         `;
     }
 }}`;

@@ -5,7 +5,10 @@ import TextLink from './TextLink.js';
 import ContainerLogin from './ContainerLogin.js';
 import Top from './Top.js';
 import ContainerPrivatePage from './ContainerPrivatePage.js'
+import Window from './Window.js';
+import BoxButtons from './BoxButtons.js';
 
 export { GlobalStyle, Button, Input,
     TextLink, ContainerLogin, Top,
-    ContainerPrivatePage };
+    ContainerPrivatePage, Window,
+    BoxButtons };

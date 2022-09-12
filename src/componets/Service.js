@@ -3,7 +3,7 @@ import axios from 'axios';
 const BASE_URL = 'http://localhost:5000';
 
 function setToken(token, setUser) {
-    localStorage.setItem('mywallet', JSON.stringify({token:token}));
+    localStorage.setItem('mywallet', JSON.stringify({token}));
 
     setUser({token})
 }  
@@ -32,9 +32,9 @@ function login(body) {
     return promise;
 }
 
-function getMyWallet(body) {
+function getMyWallet() {
     const config = getToken();
-    const promise = axios.get(`${BASE_URL}/mywallet`, body, config);
+    const promise = axios.get(`${BASE_URL}/mywallet`, config);
     return promise;
 }
 
