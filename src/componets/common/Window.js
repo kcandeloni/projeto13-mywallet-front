@@ -19,7 +19,9 @@ const Box = styled.div`
 
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 
     margin: 0 auto;
+    padding: 16px 16px;
+    overflow-y: scroll;
 `;

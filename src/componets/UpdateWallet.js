@@ -4,26 +4,32 @@ import React, { useState, useContext } from "react"
 import UserContext from "../contexts/UserContext.js";
 import { newTransaction } from './Service.js';
 import { Button, Input } from './common/index.js';
+import { Dayjs } from "dayjs";
 
 
 export default function UpdateWallet ({type, closetab}) {
     const navigate = useNavigate();
 
-    const { user } = useContext(UserContext);
+    const { dataUser } = useContext(UserContext);
     const [valor, setValor] = useState('');
     const [descricao, setDescricao] = useState('');
     let title = type === 'receive'? 'Nova entrada':'Nova saída';
 
     function handleForm(e) {
         e.preventDefault();
+        if(descricao.length < 2 || descricao[0] === ' ' || valor <= 0){
+            alert('Verifique os campos!');
+            return;
+        }
         const newWalletTransaction = {
           descricao,
           valor,
-          type: type
+          type: type,
+          day: Date.now()
         };
         let wallet = [];
-        if(!!user.wallet){
-            wallet = user.wallet;
+        if(!!dataUser.wallet){
+            wallet = dataUser.wallet;
         }
         wallet.push(newWalletTransaction);
         setValor('');
@@ -49,7 +55,7 @@ export default function UpdateWallet ({type, closetab}) {
                 <form onSubmit={handleForm}>
                     <p>{title}</p>
                     <Input
-                    type='text'
+                    type='number'
                     placeholder='Valor'
                     onChange={(e) => setValor(e.target.value)}
                     value={valor}
