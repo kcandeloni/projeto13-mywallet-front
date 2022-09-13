@@ -1,16 +1,15 @@
-import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useContext } from "react"
-import UserContext from "../contexts/UserContext.js";
+import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from 'react'
+import UserContext from '../contexts/UserContext.js';
 import { newTransaction } from './Service.js';
 import { Button, Input } from './common/index.js';
-import { Dayjs } from "dayjs";
 
 
 export default function UpdateWallet ({type, closetab}) {
     const navigate = useNavigate();
 
-    const { dataUser } = useContext(UserContext);
+    const { dataUser, atualiza, setAtualiza } = useContext(UserContext);
     const [valor, setValor] = useState('');
     const [descricao, setDescricao] = useState('');
     let title = type === 'receive'? 'Nova entrada':'Nova saída';
@@ -39,9 +38,9 @@ export default function UpdateWallet ({type, closetab}) {
 
         promise
             .then(resposta => {
-                console.log(resposta) 
                 navigate('/mywallet');
-                closetab(false);})
+                closetab(false);
+                setAtualiza(!atualiza)})
             .catch(resposta => {
                 console.log(resposta);
                 alert('Não foi possível atender a solicitação!');

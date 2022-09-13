@@ -22,6 +22,6 @@ const Box = styled.div`
     align-items: flex-start;
 
     margin: 0 auto;
-    padding: 16px 16px;
+    padding: 16px 16px 28px 16px;
     overflow-y: scroll;
 `;

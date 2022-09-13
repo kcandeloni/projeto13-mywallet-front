@@ -12,11 +12,12 @@ export default function App() {
 
     const [user, setUser] = useState({});
     const [dataUser, setDataUser] = useState({});
-
+    const [atualiza, setAtualiza] = useState(false);
     return (
         <>
         <GlobalStyle />
-            <UserContext.Provider value={{ user, setUser, dataUser, setDataUser }}>
+            <UserContext.Provider value={{ user, setUser, dataUser, setDataUser,
+                atualiza, setAtualiza }}>
                 <BrowserRouter>
                     <Routes>
                         <Route path='/' element={<Login />}/>

@@ -25,7 +25,7 @@ function RenderWallet ({t}) {
 }
 
 export default function MyWallet() {
-    const { dataUser, setDataUser } = useContext(UserContext);
+    const { dataUser, setDataUser, atualiza } = useContext(UserContext);
     const [tabUpdate, setTabUpdate] = useState(false);
     const [type, setType] = useState('');
     const [refresh, setRefresh] = useState(false);
@@ -37,6 +37,7 @@ export default function MyWallet() {
         promise
             .then(resposta => { 
                 setDataUser(resposta.data);
+                calculaTotal();
             })
             .catch(resposta => {
                 console.log(resposta);
@@ -44,30 +45,36 @@ export default function MyWallet() {
                 setDataUser({});
                 navigate('/');
             })
-        }, []);
-        if(!!dataUser.wallet && !refresh){ 
-            let soma = 0;
-                dataUser.wallet.map(e => {if(e.type === 'receive'){
-                    soma += Number(e.valor);
-                }else {
-                    soma -= Number(e.valor);
-                }
-            })
-            let totalType = (soma < 0) ? 'pay': 'receive';
-            setTotal({type:totalType, value: soma})
-            setRefresh(!refresh)
+        }, [atualiza]);
+
+        function calculaTotal () {
+            if(!!dataUser.wallet){
+                setRefresh(true);
+                let soma = 0;
+                    dataUser.wallet.map(e => {if(e.type === 'receive'){
+                        soma += Number(e.valor);
+                    }else {
+                        soma -= Number(e.valor);
+                    }
+                })
+                let totalType = (soma < 0) ? 'pay': 'receive';
+                setTotal({type:totalType, value: soma})
+            }
         }
-    return (
+        
+return (
         <>  <Window>
                 {refresh ? <div><ContainerWalletBox>
                     {dataUser.wallet.map((elem, index) => <RenderWallet key={index} t={elem}/>)} 
                     </ContainerWalletBox>
-                    <BoxLineWallet type={total.type}>
-                        <>
-                            <h6>SALDO</h6>
-                            <h5>{total.value}</h5>
-                        </>
-                    </BoxLineWallet>
+                    <BoxFixed>
+                        <BoxLineWallet type={total.type}>
+                            <>
+                                <h6>SALDO</h6>
+                                <h5>{total.value}</h5>
+                            </>
+                        </BoxLineWallet>
+                    </BoxFixed>
                     </div>
                 : <Message>'Não há registros de entrada ou saída'</Message>}
             </Window>
@@ -95,4 +102,11 @@ const Message = styled.p`
     text-align: center;
 
     color: #868686;
+`;
+
+const BoxFixed = styled.div`
+    width: 90vw;
+    position: fixed;
+    top: 70vh;
+    left: 5vw;
 `;
